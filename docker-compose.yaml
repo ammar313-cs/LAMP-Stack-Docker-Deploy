@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80" # Map container's port 80 to host's port 8080
+
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: yourRootPassword
+      MYSQL_DATABASE: yourDatabaseName
+      MYSQL_USER: yourUsername
+      MYSQL_PASSWORD: yourPassword
+    ports:
+      - "3306:3306" # Map container's port 3306 to host's port 3306

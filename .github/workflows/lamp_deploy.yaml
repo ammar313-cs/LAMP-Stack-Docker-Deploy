@@ -1,0 +1,33 @@
+name: Deploy Dockerized LAMP Stack on Staging Server
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH into Staging Server and Install Docker
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.STAGING_SERVER_IP }}
+          username: ubuntu
+          key: ${{ secrets.STAGING_SERVER_SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            sudo apt-get update
+            sudo apt-get install -y docker.io
+
+           
+            mkdir app && cd app || exit
+
+           
+            cp Dockerfile .
+            cp docker-compose.yml .
+
+           
+            sudo docker-compose up -d
+
