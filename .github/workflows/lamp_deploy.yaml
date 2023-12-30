@@ -53,4 +53,4 @@ jobs:
           key: ${{ secrets.STAGING_SERVER_SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            sudo /usr/local/bin/docker-compose up -d
+            sudo docker-compose up -d
