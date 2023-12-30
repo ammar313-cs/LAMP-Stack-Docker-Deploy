@@ -14,9 +14,9 @@ jobs:
     - name: Installing Docker on Assignment/Test Server
       uses: appleboy/ssh-action@v1.0.0
       with:
-        host: ${{ secrets.ASSIGNMENT_SERVER_IP }}
+        host: ${{ secrets.STAGING_SERVER_IP }}
         username: ubuntu
-        key: ${{ secrets.ASSIGNMENT_SERVER_SSH_PRIVATE_KEY }}
+        key: ${{ secrets.STAGING_SERVER_SSH_PRIVATE_KEY }}
         port: 22
         script: |
           sudo apt-get update
@@ -40,11 +40,11 @@ jobs:
         key: ${{ secrets.STAGING_SERVER_SSH_PRIVATE_KEY }}
         port: 22
         script: |
-          path=$(find / -name "docker-compose.yaml" 2>/dev/null)
+          path=$(find / -name "docker-compose.yml" 2>/dev/null)
           if [ -n "$path" ]; then
             cd "$(dirname "$path")" || exit 1
           else
-            echo "docker-compose.yaml not found"
+            echo "docker-compose.yml not found"
             exit 1
           fi
     - name: Run Docker Compose
