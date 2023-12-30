@@ -1,20 +1,9 @@
-# Use a Linux base image
-FROM ubuntu:latest
+# Use the Linode LAMP stack image as the base
+FROM linode/lamp
 
-# Install Apache, MySQL, PHP, and other required packages
-RUN apt-get update && apt-get install -y \
-    apache2 \
-    mysql-server \
-    php \
-    libapache2-mod-php \
-    php-mysql \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy your PHP application files to the container
-COPY ./your-php-files /var/www/html
-
-# Expose port 80 (default HTTP port)
+# Expose port 80 for web traffic
 EXPOSE 80
 
-# Start Apache service when the container starts
-CMD ["apache2ctl", "-D", "FOREGROUND"]
+# Start Apache and MySQL services
+CMD service apache2 start && service mysql start && bash
+
