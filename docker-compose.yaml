@@ -1,8 +1,10 @@
-version: '3.8'
+version: '3'
 
 services:
-  lamp:
-    image: linode/lamp
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "80:80"
-    command: /bin/bash -c "service apache2 start && service mysql start && bash"
+    restart: always
